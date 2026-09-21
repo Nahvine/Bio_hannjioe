@@ -7,13 +7,13 @@ window.BIO_CONFIG = {
 
   /* ---------- 1. THÔNG TIN CÁ NHÂN ---------- */
   profile: {
-    name: "Juno Rivers",
+    name: "hannjioe",
     verified: true,                       // true = hiện tick xanh cạnh tên
-    bio: "Lo-fi beats, midnight lyrics.",
-    avatar: "assets/avatar.svg",          // đường dẫn ảnh (jpg/png/webp/svg) hoặc link https://...
+    bio: "Tải các file, app tối ưu bên dưới",
+    avatar: "assets/tiktok-avatar.svg",   // đường dẫn ảnh (jpg/png/webp/svg) hoặc link https://...
     // Tiêu đề tab trình duyệt & mô tả khi chia sẻ link
-    pageTitle: "Juno Rivers · Links",
-    pageDescription: "Tất cả link của Juno Rivers ở một nơi."
+    pageTitle: "hannjioe · Links",
+    pageDescription: "Tải các file, app tối ưu bên dưới"
   },
 
   /* ---------- 2. GIAO DIỆN ----------
@@ -28,11 +28,7 @@ window.BIO_CONFIG = {
   /* ---------- 3. ICON MẠNG XÃ HỘI (hàng tròn nhỏ phía trên) ----------
      icon: tên trong danh sách ở cuối file này                          */
   socials: [
-    { icon: "twitter",   url: "https://twitter.com/" },
-    { icon: "instagram", url: "https://instagram.com/" },
-    { icon: "tiktok",    url: "https://tiktok.com/" },
-    { icon: "youtube",   url: "https://youtube.com/" },
-    { icon: "spotify",   url: "https://open.spotify.com/" }
+    { icon: "tiktok",    url: "https://www.tiktok.com/@hannjioe" }
   ],
 
   /* ---------- 4. DANH SÁCH LINK CHÍNH ----------
