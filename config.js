@@ -42,12 +42,8 @@ window.BIO_CONFIG = {
      color : (tùy chọn) màu nền của vòng tròn logo, ví dụ "#1DB954"
      Thêm link mới = copy 1 dòng { ... }, và nhớ dấu phẩy ở cuối dòng.   */
   links: [
-    { title: "Spotify",          url: "https://open.spotify.com/",  icon: "spotify",    color: "#1DB954" },
-    { title: "Apple Music",      url: "https://music.apple.com/",   icon: "applemusic", color: "#fa2d48" },
-    { title: "YouTube",          url: "https://youtube.com/",       icon: "youtube",    color: "#ff0000" },
-    { title: "Bandcamp",         url: "https://bandcamp.com/",      icon: "bandcamp",   color: "#4a9bb5" },
-    { title: "Đăng ký nhận tin", url: "mailto:ban@example.com",     icon: "mail",       color: "#f4a7b9" },
-    { title: "Link dùng logo riêng", url: "https://example.com",    icon: "assets/logo-mau.svg" }
+    { title: "Tải BrotX v2", url: "https://link.osteup.io.vn/4c7447c1", icon: "assets/brotx.png" },
+    { title: "Tải Osteboss", url: "https://osteup.com/osteboss/", icon: "assets/osteboss.png" }
   ],
 
   /* ---------- 5. CHÂN TRANG ---------- */
