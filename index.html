@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Links</title>
+  <meta name="description" content="Tất cả link ở một nơi.">
+  <meta name="theme-color" content="#0c1f16">
+  <link rel="icon" href="assets/avatar.svg">
+
+  <!-- Font Quicksand (bo tròn, hợp với nút viên thuốc). Nếu tải lỗi sẽ tự dùng font hệ thống. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"><span></span><span></span></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <main class="page">
+    <div class="avatar reveal" style="--i:0">
+      <div class="avatar__inner"><img id="avatar" src="assets/avatar.svg" alt=""></div>
+    </div>
+
+    <h1 class="name reveal" id="name" style="--i:1"></h1>
+    <p class="bio reveal" id="bio" style="--i:2"></p>
+
+    <nav class="socials reveal" id="socials" style="--i:2" aria-label="Mạng xã hội"></nav>
+
+    <ul class="links" id="links"></ul>
+
+    <p class="footer reveal" id="footer" style="--i:9"></p>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
