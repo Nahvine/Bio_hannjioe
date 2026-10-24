@@ -38,6 +38,7 @@ window.BIO_CONFIG = {
      color : (tùy chọn) màu nền của vòng tròn logo, ví dụ "#1DB954"
      Thêm link mới = copy 1 dòng { ... }, và nhớ dấu phẩy ở cuối dòng.   */
   links: [
+    { title: "Tải BrotX v7", url: "https://link.osteup.io.vn/f1b07182", icon: "assets/brotx.png" },
     { title: "Tải BrotX v6", url: "https://link.osteup.io.vn/c01c40b6", icon: "assets/brotx.png" },
     { title: "Tải BrotX v5", url: "https://link.osteup.io.vn/b83a7e26", icon: "assets/brotx.png" },
     { title: "Tải BrotX v4", url: "https://link.osteup.io.vn/ff42a06b", icon: "assets/brotx.png" },
