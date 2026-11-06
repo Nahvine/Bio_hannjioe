@@ -9,11 +9,11 @@ window.BIO_CONFIG = {
   profile: {
     name: "hannjioe",
     verified: true,                       // true = hiện tick xanh cạnh tên
-    bio: "Tải các file, app tối ưu bên dưới",
+    bio: "Website chính thức: osteup.com · Tổng hợp app & mẹo fix lag mọi hệ điều hành",
     avatar: "assets/tiktok-avatar.svg",   // đường dẫn ảnh (jpg/png/webp/svg) hoặc link https://...
     // Tiêu đề tab trình duyệt & mô tả khi chia sẻ link
-    pageTitle: "hannjioe · Links",
-    pageDescription: "Tải các file, app tối ưu bên dưới"
+    pageTitle: "hannjioe · Links & Tools",
+    pageDescription: "Website chính thức osteup.com - Tải BrotX Optimizer, Osteboss và các công cụ tối ưu Android, iOS, Windows."
   },
 
   /* ---------- 2. GIAO DIỆN ----------
@@ -28,28 +28,87 @@ window.BIO_CONFIG = {
   /* ---------- 3. ICON MẠNG XÃ HỘI (hàng tròn nhỏ phía trên) ----------
      icon: tên trong danh sách ở cuối file này                          */
   socials: [
-    { icon: "tiktok",    url: "https://www.tiktok.com/@hannjioe" }
+    { icon: "tiktok", url: "https://www.tiktok.com/@hannjioe", label: "TikTok" },
+    { icon: "globe",  url: "https://osteup.com", label: "Website osteup.com" }
   ],
 
   /* ---------- 4. DANH SÁCH LINK CHÍNH ----------
-     title : chữ hiển thị trên nút
-     url   : đường dẫn khi bấm vào
-     icon  : tên icon có sẵn (xem cuối file)  HOẶC  logo riêng: "assets/ten-anh.png"
-     color : (tùy chọn) màu nền của vòng tròn logo, ví dụ "#1DB954"
-     Thêm link mới = copy 1 dòng { ... }, và nhớ dấu phẩy ở cuối dòng.   */
+     title    : chữ hiển thị trên nút
+     subtitle : mô tả ngắn phụ dưới tiêu đề (tùy chọn)
+     url      : đường dẫn khi bấm vào
+     icon     : tên icon có sẵn HOẶC đường dẫn ảnh: "assets/ten-anh.png"
+     badge    : nhãn nhỏ nổi bật (tùy chọn, ví dụ: "Mới Nhất", "Chính Thức")
+     highlight: viền sáng nổi bật (tùy chọn)
+     children : danh sách các phiên bản con dropdown sổ xuống (tùy chọn) */
   links: [
-    { title: "Tải BrotX v8", url: "https://link.osteup.io.vn/1e03c104", icon: "assets/brotx.png" },
-    { title: "Tải BrotX v7", url: "https://link.osteup.io.vn/f1b07182", icon: "assets/brotx.png" },
-    { title: "Tải BrotX v6", url: "https://link.osteup.io.vn/c01c40b6", icon: "assets/brotx.png" },
-    { title: "Tải BrotX v5", url: "https://link.osteup.io.vn/b83a7e26", icon: "assets/brotx.png" },
-    { title: "Tải BrotX v4", url: "https://link.osteup.io.vn/ff42a06b", icon: "assets/brotx.png" },
-    { title: "Tải BrotX v3", url: "https://link.osteup.io.vn/5d908b4a", icon: "assets/brotx.png" },
-    { title: "Tải BrotX v2", url: "https://link.osteup.io.vn/4c7447c1", icon: "assets/brotx.png" },
-    { title: "Tải Osteboss", url: "https://osteup.com/osteboss/", icon: "assets/osteboss.png" }
+    // 1. Website chính thức osteup.com
+    {
+      title: "osteup.com · Website Chính Thức",
+      subtitle: "Mọi thông tin & bài viết fix lag Android, iOS, Windows",
+      url: "https://osteup.com",
+      icon: "assets/osteup.png",
+      badge: "Chính Thức",
+      highlight: true
+    },
+
+    // 2. Nhóm dropdown BrotX Optimizer (từ V8 mới nhất đến V2)
+    {
+      title: "BrotX Optimizer",
+      subtitle: "Tối ưu Android không root (Chọn bản V2 – V8)",
+      icon: "assets/brotx.png",
+      badge: "V8 Mới Nhất",
+      children: [
+        {
+          title: "BrotX v8 (Mới Nhất)",
+          subtitle: "64 cờ · Speed Mode QoS · Tắt App Standby",
+          url: "https://link.osteup.io.vn/1e03c104",
+          badge: "Mới Nhất",
+          highlight: true
+        },
+        {
+          title: "BrotX v7",
+          subtitle: "58 cờ · ANGLE Vulkan · Quét 144Hz",
+          url: "https://link.osteup.io.vn/f1b07182"
+        },
+        {
+          title: "BrotX v6",
+          subtitle: "52 cờ · GPU Game Driver · Bypass RAM Plus",
+          url: "https://link.osteup.io.vn/c01c40b6"
+        },
+        {
+          title: "BrotX v5",
+          subtitle: "50 cờ · Shizuku IPC · Room Snapshot",
+          url: "https://link.osteup.io.vn/b83a7e26"
+        },
+        {
+          title: "BrotX v4",
+          subtitle: "Phiên bản V4 ổn định",
+          url: "https://link.osteup.io.vn/ff42a06b"
+        },
+        {
+          title: "BrotX v3",
+          subtitle: "Phiên bản V3",
+          url: "https://link.osteup.io.vn/5d908b4a"
+        },
+        {
+          title: "BrotX v2",
+          subtitle: "Phiên bản V2 khởi nguyên",
+          url: "https://link.osteup.io.vn/4c7447c1"
+        }
+      ]
+    },
+
+    // 3. Ứng dụng Osteboss
+    {
+      title: "Tải Osteboss",
+      subtitle: "Công cụ tối ưu hiệu năng và quản lý VIP",
+      url: "https://osteup.com/osteboss/",
+      icon: "assets/osteboss.png"
+    }
   ],
 
   /* ---------- 5. CHÂN TRANG ---------- */
-  footer: ""    // Ví dụ: "© 2026 Juno Rivers". Để trống thì ẩn.
+  footer: "© 2026 hannjioe · osteup.com"
 };
 
 /* =====================================================================

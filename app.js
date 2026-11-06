@@ -1,5 +1,5 @@
 /* =====================================================================
-   Đọc config.js -> dựng trang. Thường bạn KHÔNG cần sửa file này.
+   Đọc config.js -> dựng trang. Hỗ trợ dropdown mượt mà & link phong phú.
    ===================================================================== */
 (function () {
   "use strict";
@@ -75,7 +75,6 @@
     if (cfg.theme === "light") document.body.classList.add("is-light");
   }
 
-  // Cho phép người dùng viết ngắn gọn: { button, accent, text, bg }
   function mapCustom(c) {
     const out = {};
     if (c.bg) out.bg = c.bg;
@@ -85,6 +84,23 @@
     if (c.glow1) out.glow1 = c.glow1;
     if (c.glow2) out.glow2 = c.glow2;
     return out;
+  }
+
+  function renderIcon(iconSource, color) {
+    const ic = document.createElement("span");
+    ic.className = "link__icon";
+    if (color) ic.style.setProperty("--icon-bg", color);
+
+    if (iconSource && isImagePath(iconSource)) {
+      const img = document.createElement("img");
+      img.src = iconSource;
+      img.alt = "";
+      img.loading = "lazy";
+      ic.appendChild(img);
+    } else {
+      ic.innerHTML = svgIcon(iconSource);
+    }
+    return ic;
   }
 
   /* ---------- DỰNG TRANG ---------- */
@@ -99,7 +115,6 @@
     const av = $("avatar");
     av.src = p.avatar || "assets/avatar.svg";
     av.alt = p.name ? "Ảnh đại diện của " + p.name : "Ảnh đại diện";
-    // Favicon = avatar để tab trình duyệt nhìn có nhận diện
     const fav = document.querySelector('link[rel="icon"]');
     if (fav && p.avatar) fav.href = p.avatar;
 
@@ -111,7 +126,7 @@
     $("bio").textContent = p.bio || "";
     if (!p.bio) $("bio").hidden = true;
 
-    // Social
+    // Socials
     const soc = $("socials");
     (cfg.socials || []).forEach((s) => {
       const a = document.createElement("a");
@@ -123,36 +138,173 @@
     });
     if (!(cfg.socials || []).length) soc.hidden = true;
 
-    // Links chính
+    // Links chính & Dropdown
     const list = $("links");
     (cfg.links || []).forEach((l, i) => {
       const li = document.createElement("li");
       li.className = "reveal";
       li.style.setProperty("--i", i + 3);
 
-      const a = document.createElement("a");
-      a.className = "link";
-      a.href = l.url;
-      if (isExternal(l.url)) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+      if (l.children && l.children.length > 0) {
+        // Dropdown link group (BrotX Optimizer)
+        li.classList.add("link-group");
 
-      const ic = document.createElement("span");
-      ic.className = "link__icon";
-      if (l.color) ic.style.setProperty("--icon-bg", l.color);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "link link--dropdown link--rich" + (l.highlight ? " link--highlight" : "");
+        btn.setAttribute("aria-expanded", "false");
+        const panelId = "dropdown-panel-" + i;
+        btn.setAttribute("aria-controls", panelId);
 
-      if (l.icon && isImagePath(l.icon)) {
-        const img = document.createElement("img");
-        img.src = l.icon; img.alt = ""; img.loading = "lazy";
-        ic.appendChild(img);
+        const ic = renderIcon(l.icon, l.color);
+
+        const content = document.createElement("span");
+        content.className = "link__content";
+
+        const title = document.createElement("span");
+        title.className = "link__title";
+        title.textContent = l.title;
+        content.appendChild(title);
+
+        if (l.subtitle) {
+          const sub = document.createElement("span");
+          sub.className = "link__subtitle";
+          sub.textContent = l.subtitle;
+          content.appendChild(sub);
+        }
+
+        const action = document.createElement("span");
+        action.className = "link__action";
+
+        if (l.badge) {
+          const badge = document.createElement("span");
+          badge.className = "link__badge link__badge--accent";
+          badge.textContent = l.badge;
+          action.appendChild(badge);
+        }
+
+        const chevron = document.createElement("span");
+        chevron.className = "link__chevron";
+        chevron.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+        action.appendChild(chevron);
+
+        btn.append(ic, content, action);
+
+        // Panel con sổ xuống
+        const panel = document.createElement("div");
+        panel.className = "dropdown-panel";
+        panel.id = panelId;
+
+        const inner = document.createElement("div");
+        inner.className = "dropdown-panel__inner";
+
+        const subList = document.createElement("ul");
+        subList.className = "sublinks";
+
+        l.children.forEach((c) => {
+          const subLi = document.createElement("li");
+          const subA = document.createElement("a");
+          subA.className = "sublink" + (c.highlight ? " sublink--highlight" : "");
+          subA.href = c.url;
+          if (isExternal(c.url)) { subA.target = "_blank"; subA.rel = "noopener noreferrer"; }
+
+          const left = document.createElement("span");
+          left.className = "sublink__left";
+
+          const subTitle = document.createElement("span");
+          subTitle.className = "sublink__title";
+          subTitle.textContent = c.title || c.version || c.url;
+          left.appendChild(subTitle);
+
+          if (c.subtitle) {
+            const subMeta = document.createElement("span");
+            subMeta.className = "sublink__subtitle";
+            subMeta.textContent = c.subtitle;
+            left.appendChild(subMeta);
+          }
+
+          const right = document.createElement("span");
+          right.className = "sublink__right";
+
+          if (c.badge) {
+            const b = document.createElement("span");
+            b.className = "sublink__badge";
+            b.textContent = c.badge;
+            right.appendChild(b);
+          }
+
+          const arr = document.createElement("span");
+          arr.className = "sublink__arrow";
+          arr.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+          right.appendChild(arr);
+
+          subA.append(left, right);
+          subLi.appendChild(subA);
+          subList.appendChild(subLi);
+        });
+
+        inner.appendChild(subList);
+        panel.appendChild(inner);
+
+        btn.addEventListener("click", () => {
+          const isOpen = li.classList.toggle("is-open");
+          btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+
+        li.append(btn, panel);
       } else {
-        ic.innerHTML = svgIcon(l.icon);
+        // Link độc lập bình thường
+        const a = document.createElement("a");
+        a.className = "link" + (l.highlight ? " link--highlight" : "");
+        a.href = l.url;
+        if (isExternal(l.url)) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+
+        const ic = renderIcon(l.icon, l.color);
+
+        if (l.subtitle || l.badge) {
+          a.classList.add("link--rich");
+
+          const content = document.createElement("span");
+          content.className = "link__content";
+
+          const title = document.createElement("span");
+          title.className = "link__title";
+          title.textContent = l.title || l.url;
+          content.appendChild(title);
+
+          if (l.subtitle) {
+            const sub = document.createElement("span");
+            sub.className = "link__subtitle";
+            sub.textContent = l.subtitle;
+            content.appendChild(sub);
+          }
+
+          const action = document.createElement("span");
+          action.className = "link__action";
+
+          if (l.badge) {
+            const b = document.createElement("span");
+            b.className = "link__badge link__badge--accent";
+            b.textContent = l.badge;
+            action.appendChild(b);
+          }
+
+          const arr = document.createElement("span");
+          arr.className = "link__arrow";
+          arr.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+          action.appendChild(arr);
+
+          a.append(ic, content, action);
+        } else {
+          const title = document.createElement("span");
+          title.className = "link__title";
+          title.textContent = l.title || l.url;
+          a.append(ic, title);
+        }
+
+        li.appendChild(a);
       }
 
-      const title = document.createElement("span");
-      title.className = "link__title";
-      title.textContent = l.title || l.url;
-
-      a.append(ic, title);
-      li.appendChild(a);
       list.appendChild(li);
     });
 
